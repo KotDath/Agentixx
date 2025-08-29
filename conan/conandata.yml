@@ -1,0 +1,72 @@
+sources:
+  "0.1.0":
+    url: "https://github.com/your-repo/agentixx/archive/v0.1.0.tar.gz"
+    sha256: "put_your_sha256_hash_here"
+    strip_root: 1
+
+patches:
+  "0.1.0":
+    - patch_file: "patches/0001-fix-cmake-exports.patch"
+      patch_description: "Fix CMake export configuration"
+      patch_type: "portability"
+
+# Dependencies versions for different package versions
+requirements:
+  "0.1.0":
+    - "libcurl/[>=8.0.0 <9.0.0]"
+    - "nlohmann_json/[>=3.11.0 <4.0.0]"
+
+# Test requirements
+test_requirements:
+  "0.1.0":
+    - "gtest/[>=1.14.0]"
+
+# Build configurations tested
+configurations:
+  - os: "Linux"
+    arch: "x86_64"
+    compiler: "gcc"
+    compiler.version: ["11", "12", "13"]
+    compiler.libcxx: "libstdc++11"
+    build_type: ["Release", "Debug"]
+  
+  - os: "Linux" 
+    arch: "x86_64"
+    compiler: "clang"
+    compiler.version: ["14", "15", "16", "17"]
+    compiler.libcxx: "libstdc++11"
+    build_type: ["Release", "Debug"]
+    
+  - os: "Macos"
+    arch: "x86_64"
+    compiler: "apple-clang"
+    compiler.version: ["14", "15"]
+    compiler.libcxx: "libc++"
+    build_type: ["Release", "Debug"]
+    
+  - os: "Macos"
+    arch: "armv8"
+    compiler: "apple-clang" 
+    compiler.version: ["14", "15"]
+    compiler.libcxx: "libc++"
+    build_type: ["Release", "Debug"]
+    
+  - os: "Windows"
+    arch: "x86_64"
+    compiler: "Visual Studio"
+    compiler.version: ["16", "17"]
+    build_type: ["Release", "Debug"]
+
+# Known issues and compatibility notes
+compatibility:
+  notes:
+    - "Requires C++20 support"
+    - "libcurl must be built with SSL/TLS support for HTTPS"
+    - "On Windows, recommend using vcpkg for dependencies"
+  
+  minimum_versions:
+    cmake: "3.24"
+    gcc: "11"
+    clang: "14"
+    apple-clang: "14"
+    msvc: "193" # Visual Studio 2022
